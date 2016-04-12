@@ -90,8 +90,10 @@ public class GeneratePostMan {
 				JSONObject simpleElementToBeAdded = (JSONObject) jsonObjects.get(rd.getPreviousElement());
 
 				// add child object to parent object
-				simpleElementToBeAdded.put(rd.getLastElement(), "{" + rd.getLastElement() + "}");
-
+				if(rd.getLastElement().contains("@") || rd.getLastElement().contains("#"))
+				simpleElementToBeAdded.put(rd.getLastElement(), "{" + rd.getPreviousElement()+"."+rd.getLastElement().substring(1,rd.getLastElement().length()) + "}");
+				else
+					simpleElementToBeAdded.put(rd.getLastElement(), "{" + rd.getLastElement() + "}");
 				// re-add object in map
 
 				jsonObjects.put(rd.getPreviousElement(), simpleElementToBeAdded);
